@@ -3,6 +3,7 @@ package com.example.practiceapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.Button
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.i("MYTAG", "MainActivity : OneCreate")
         val greetingTextView = findViewById<TextView>(R.id.tvHello)
         val inputField = findViewById<EditText>(R.id.etName)
         val submitButton = findViewById<Button>(R.id.btnSubmit)
@@ -41,5 +43,35 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("USER",enteredName)
             startActivity(intent)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i("MYTAG", "MainActivity : OneStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("MYTAG", "MainActivity : OneResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("MYTAG", "MainActivity : OnePause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i("MYTAG", "MainActivity : OneStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("MYTAG", "MainActivity : OneDestroy")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i("MYTAG", "MainActivity : OneReStart")
     }
 }
