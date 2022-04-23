@@ -1,6 +1,7 @@
 package com.example.practiceapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +13,18 @@ import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var nameText : EditText
+    private lateinit var sf : SharedPreferences
+    private lateinit var editor : SharedPreferences.Editor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        nameText = findViewById(R.id.etName)
+        sf =getSharedPreferences("my_sf", MODE_PRIVATE)
+        editor = sf.edit()
+
         Log.i("MYTAG", "MainActivity : OneCreate")
         val greetingTextView = findViewById<TextView>(R.id.tvHello)
         val inputField = findViewById<EditText>(R.id.etName)
@@ -45,6 +55,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+//    override fun onPause(){
+//        super.onPause()
+//        val name =nameText.text.toString()
+//        editor.apply(){
+//            putString("sf_name",name)
+//            commit()
+//        }
+//    }
+
     override fun onStart() {
         super.onStart()
         Log.i("MYTAG", "MainActivity : OneStart")
@@ -53,11 +72,18 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.i("MYTAG", "MainActivity : OneResume")
+        val name = sf.getString("sf_name",null)
+        nameText.setText(name)
     }
 
     override fun onPause() {
         super.onPause()
         Log.i("MYTAG", "MainActivity : OnePause")
+        val name =nameText.text.toString()
+        editor.apply(){
+            putString("sf_name",name)
+            commit()
+        }
     }
 
     override fun onStop() {
